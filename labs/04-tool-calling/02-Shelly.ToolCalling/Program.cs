@@ -163,3 +163,20 @@ while (true)
 
     Console.WriteLine($"Assistant: {response.Text}");
 }
+
+/*
+1. Co zmieni się w aplikacji, kiedy zamiast użytkownika wybierającego operację decyzję będzie podejmował model językowy?
+-- Zamiast sztywnych instrukcji warunkowych (if/switch) i menu wyboru, użytkownik wydaje polecenia w języku naturalnym, a model sam dobiera odpowiednią funkcję na podstawie jej opisu (Tool Calling).
+
+2. Dlaczego model nie powinien odpowiadać na pytania o aktualny stan urządzenia bez jego odczytania?
+--Model językowy nie ma bezpośredniego połączenia ze światem fizycznym, więc odpowiedź bez odczytania danych z API byłaby halucynacją.
+  Ponadto stan urządzenia mógł zostać zmieniony z zewnątrz (np. fizycznym przyciskiem), o czym model nie wie bez ponownego wywołania funkcji sprawdzającej status.
+
+3. Czy dodanie metody do API automatycznie udostępnia ją modelowi?
+--Nie, dodanie endpointu w serwerze pozwala jedynie na obsługę zapytań HTTP.
+  Aby model mógł z niego korzystać, trzeba w kodzie klienta napisać funkcję wywołującą ten endpoint i jawnie zarejestrować ją na liście narzędzi przekazywanych do modelu (np. przez AIFunctionFactory.Create).
+
+ 4. Czy model może zrealizować polecenie „Przełącz lampkę” bez dedykowanego narzędzia Switch.Toggle?
+--Tak, model może wykonać to zadanie w dwóch krokach, korzystając z dotychczasowych narzędzi. Najpierw wywoła funkcję sprawdzającą aktualny stan urządzenia (check_status),
+  a po otrzymaniu wyniku dobierze odpowiednią funkcję zmieniającą ten stan na przeciwny (turn_on_light lub turn_off_light).
+*/
